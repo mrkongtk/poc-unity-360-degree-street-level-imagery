@@ -1,0 +1,18 @@
+image: node:16
+
+stages: # List of stages for jobs, and their order of execution
+  - deploy
+
+pages: # must call pages to build page in gitlab
+  stage: deploy
+  tags:
+    - docker
+  script:
+    - mkdir -p public
+    - rm -rf public/*
+    - cp -r Build/WebGL/* public
+  artifacts:
+    paths:
+      - public
+  only:
+    - publish
